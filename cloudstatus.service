@@ -1,0 +1,21 @@
+[Unit]
+Description=Cloud-Status WSGI Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+User=root
+Group=root
+PIDFile=/var/tmp/cloudstatus.pid
+WorkingDirectory=/opt/cloud-status
+
+ExecStart=/usr/local/bin/gunicorn --pid /var/tmp/cloudstatus.pid --pythonpath /opt/cloud-status --config /opt/cloud-status/gunicorn.py main:app
+
+Restart=on-failure
+RestartSec=30
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
