@@ -1,0 +1,19 @@
+.dense-columns {
+    column-count: 3;
+}.sparse-columns {
+    column-count: 3;
+}
+
+.card {
+    margin-bottom: 0rem !important;
+}
+
+.card-zoom {
+    background: skyblue;
+}
+.card-apple {
+    background: silver;
+}
+.card-google {
+    background: palegoldenrod;
+}

@@ -1,0 +1,8 @@
+<h2>G Suite</h2>
+<ul class="list-group">
+    {% for item in gsuite %}
+    <li class="list-group-item">Title: {{item["title"]}} <span class="float-right">Published: {{item["pubDate"]}}</span></li>
+    <li class="list-group-item">{{item["description"]|safe}}</li>
+    <li class="list-group-item"><a href="{{item['link']}}">{{item["link"]}}</a></li>
+{% endfor %}
+</ul>

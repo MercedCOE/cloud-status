@@ -1,0 +1,19 @@
+<div class="card-google">
+<h2>G Suite</h2>
+<div class="card-columns dense-columns">
+    {% for item in gsuite %}
+    {% if gsuite[item]['message'] %}
+        {% if gsuite[item]['message']['resolved'] %}
+            {% set g_status = '<span class="badge badge-success float-right">up</span>' %}
+        {% else %}
+            {% set g_status = '<span class="badge badge-warning float-right">impaired</span>' %}
+        {% endif %}
+    {% else %}
+        {% set g_status = '<span class="badge badge-success float-right">up</span>' %}
+    {% endif %}
+    <div class="card card-google">
+    <p class="card-title">{{gsuite[item]['name']}}{{g_status|safe}}</p>
+    </div>
+{% endfor %}
+</div>
+</div>

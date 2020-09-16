@@ -1,0 +1,21 @@
+<div class="card-apple">
+<h2>Apple</h2>
+<div class="card-columns dense-columns">
+    {% for item in apple %}
+    <div class="card card-apple">
+        {% if apple[item][0]['eventStatus']|lower != 'up' %}
+            <p class="card-title">{{item}}<span class="badge badge-warning float-right">{{apple[item][0]['eventStatus']}}</span></p>
+            <p class="card-text">
+            {% for field in apple[item][10] if field not in ['epochStartDate', 'epochEndDate', 'messageId', 'eventStatus', 'datePosted', 'affectedServices'] %}
+                {% if loop.cycle != 0 %}<br/>{% endif %}
+                {{field}}: {{apple[item][0][field]}}
+            {% endfor %}
+            </p>
+        {% else %}
+            <p class="card-title">{{item}}<span class="badge badge-success float-right">{{apple[item][0]['eventStatus']}}</span></p>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+    </div>
+</div>
