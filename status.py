@@ -26,17 +26,21 @@ def get_google() -> dict:
 def get_gsuite() -> dict:
     gs = 'https://www.google.com/appsstatus/rss/en'
     result = xmltodict.parse(get_data(gs))
-    items = dict(dict(result['rss']['channel'])['item'])
-    if type(items) is not 'list':
-        items = [items]
-    for index, item in enumerate(items):
-        items[index] = dict(item)
-    posts = [items[0]]
-    for item in posts:
-        for x in [i['description'] for i in posts]:
-            if item['description'] not in x:
-                posts.append(item)
-    return posts
+    channel = dict(result['rss']['channel'])
+    if 'item' in channel:
+        items = dict(channel['item'])
+        if type(items) is not 'list':
+            items = [items]
+        for index, item in enumerate(items):
+            items[index] = dict(item)
+        posts = [items[0]]
+        for item in posts:
+            for x in [i['description'] for i in posts]:
+                if item['description'] not in x:
+                    posts.append(item)
+        return posts
+    else:
+        return None
 
 def get_zoom() -> dict:
     zs = 'https://14qjgk812kgk.statuspage.io/api/v2/summary.json'
