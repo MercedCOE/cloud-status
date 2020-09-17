@@ -1,7 +1,7 @@
 <div class="card-zoom">
 <h2><a href="https://status.zoom.us/">Zoom</a></h2>
 <div class="card-columns sparse-columns">
-{% for item in zoom["components"] if item['id'] not in ['9skbqhkvk721', 'dhtlfcvrh3qh', 'wgnljdgkx9dw', 'nyfqtg3bpllm', 'b49qkwc1nk36', '12cw0typ4wln', 'rmphw6f34qk9'] %}
+{% for item in zoom["components"] %}
 <div class="card card-zoom">
     {% if 'operational' in item['status']|lower %}
         {% set status_color = 'badge-success' %}
