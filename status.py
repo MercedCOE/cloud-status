@@ -56,3 +56,8 @@ def get_apple() -> dict:
         else:
             result[serviceName] = service.get('events')
     return result
+
+def get_adobe() -> dict:
+    ad = 'https://data.status.adobe.com/adobestatus/currentstatus'
+    result = get_data(ad)
+    return result
