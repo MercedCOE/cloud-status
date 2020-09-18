@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import json
 import requests
 import xmltodict

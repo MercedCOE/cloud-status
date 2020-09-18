@@ -1,0 +1,22 @@
+name: Deploy to Google Apps Engine
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Google App Engine (GAE) Deploy
+        uses: atRobertoFlores/gae_deploy_action@1.2
+        with:
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+          project_name: ${{ secrets.PROJECT_NAME }}
