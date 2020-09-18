@@ -1,8 +1,8 @@
 name: Deploy to Google Apps Engine
 
 on:
-  release:
-    types: [ published ]
+  push:
+    branches: [ master ]
 
 jobs:
   deploy:
