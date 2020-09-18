@@ -21,22 +21,25 @@ def get_google() -> dict:
                 google[message['service']]['message'] = message
     return google
 
-def get_gsuite() -> dict:
+def get_gevents() -> dict:
     gs = 'https://www.google.com/appsstatus/rss/en'
     result = xmltodict.parse(get_data(gs))
     channel = dict(result['rss']['channel'])
     if 'item' in channel:
-        items = dict(channel['item'])
-        if type(items) is not 'list':
-            items = [items]
-        for index, item in enumerate(items):
-            items[index] = dict(item)
-        posts = [items[0]]
-        for item in posts:
-            for x in [i['description'] for i in posts]:
-                if item['description'] not in x:
-                    posts.append(item)
-        return posts
+        if len(channel['item']) is None:
+            return None
+        elif len(channel['item']) == 1:
+            return channel['item']
+        else:
+            items = channel['item']
+            for index, item in enumerate(items):
+                items[index] = dict(item)
+            posts = [items[0]]
+            for item in posts:
+                for x in [i['description'] for i in posts]:
+                    if item['description'] not in x:
+                        posts.append(item)
+            return posts
     else:
         return None
 

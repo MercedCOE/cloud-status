@@ -1,29 +1,27 @@
 <div class="card-google">
-<h2><a href="https://www.google.com/appsstatus#hl=en&v=status">G Suite</a></h2>
-<div class="card-columns dense-columns">
-    {% for item in gsuite %}
-    {% if gsuite[item]['message'] %}
-        {% if gsuite[item]['message']['resolved'] %}
-            {% set g_status = '<span class="badge badge-success float-right">up</span>' %}
+    <h2><a href="https://www.google.com/appsstatus#hl=en&v=status">G Suite</a></h2>
+    <div class="card-columns dense-columns">
+        {% for item in gsuite %}
+        {% if gsuite[item]['message'] %}
+            {% if gsuite[item]['message']['resolved'] %}
+                {% set g_status = '<span class="badge badge-success float-right">up</span>' %}
+            {% else %}
+                {% set g_status = '<span class="badge badge-warning float-right">impaired</span>' %}
+            {% endif %}
         {% else %}
-            {% set g_status = '<span class="badge badge-warning float-right">impaired</span>' %}
+            {% set g_status = '<span class="badge badge-success float-right">up</span>' %}
         {% endif %}
-    {% else %}
-        {% set g_status = '<span class="badge badge-success float-right">up</span>' %}
-    {% endif %}
-    <div class="card card-google">
-    <p class="card-title">{{gsuite[item]['name']}}{{g_status|safe}}</p>
-    </div>
-{% endfor %}
-{% if gevents %}
-    <ul class="list-group">
-        {% for item in gevents %}
-        <li class="list-group-item">Title: {{item["title"]}} <span class="float-right">Published: {{item["pubDate"]}}</span></li>
-        <li class="list-group-item">{{item["description"]|safe}}</li>
-        <li class="list-group-item"><a href="{{item['link']}}">{{item["link"]}}</a></li>
+        <div class="card card-google">
+        <p class="card-title">{{gsuite[item]['name']}}{{g_status|safe}}</p>
+        </div>
     {% endfor %}
-    </ul>
-{% endif %}
-
-</div>
+    </div>
+    {% if gevents %}
+        <ul class="list-group card-google">
+            {% for item in gevents %}
+            <li class="list-group-item card-google">Title: {{item["title"]}} <span class="float-right">Published: {{item["pubDate"]}}</span></li>
+            <li class="list-group-item card-google">{{item["description"]|safe}}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 </div>
