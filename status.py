@@ -1,6 +1,7 @@
 import json
 import requests
 import xmltodict
+from pprint import pprint
 
 
 def get_data(url) -> str:
@@ -31,10 +32,10 @@ def get_gevents() -> dict:
         elif len(channel['item']) == 1:
             return channel['item']
         else:
-            items = channel['item']
-            for index, item in enumerate(items):
-                items[index] = dict(item)
-            posts = [items[0]]
+            items = dict(channel['item'])
+#            for index, item in enumerate(items):
+#                items[index] = dict(item)
+            posts = [items]
             for item in posts:
                 for x in [i['description'] for i in posts]:
                     if item['description'] not in x:
@@ -64,5 +65,5 @@ def get_apple() -> dict:
 
 def get_adobe() -> dict:
     ad = 'https://data.status.adobe.com/adobestatus/currentstatus'
-    result = get_data(ad)
+    result = json.loads(get_data(ad))
     return result
