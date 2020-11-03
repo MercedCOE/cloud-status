@@ -26,23 +26,26 @@ def get_gevents() -> dict:
     gs = 'https://www.google.com/appsstatus/rss/en'
     result = xmltodict.parse(get_data(gs))
     channel = dict(result['rss']['channel'])
-    if 'item' in channel:
-        if len(channel['item']) is None:
-            return None
-        elif len(channel['item']) == 1:
-            return channel['item']
+    try:
+        if 'item' in channel:
+            if len(channel['item']) is None:
+                return None
+            elif len(channel['item']) == 1:
+                return channel['item']
+            else:
+                items = dict(channel['item'])
+    #            for index, item in enumerate(items):
+    #                items[index] = dict(item)
+                posts = [items]
+                for item in posts:
+                    for x in [i['description'] for i in posts]:
+                        if item['description'] not in x:
+                            posts.append(item)
+                return posts
         else:
-            items = dict(channel['item'])
-#            for index, item in enumerate(items):
-#                items[index] = dict(item)
-            posts = [items]
-            for item in posts:
-                for x in [i['description'] for i in posts]:
-                    if item['description'] not in x:
-                        posts.append(item)
-            return posts
-    else:
-        return None
+            return None
+    except:
+        pass
 
 def get_zoom() -> dict:
     zs = 'https://14qjgk812kgk.statuspage.io/api/v2/summary.json'

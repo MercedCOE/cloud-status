@@ -3,8 +3,16 @@
 <div class="card-columns dense-columns">
     {% for item in apple %}
     <div class="card card-apple">
-        {% if apple[item][0]['eventStatus']|lower != 'up' %}
+        {% if apple[item][0]['eventStatus']|lower not in ['up', 'resolved'] %}
             <p class="card-title">{{item}}<span class="badge badge-warning float-right">{{apple[item][0]['eventStatus']}}</span></p>
+            <p class="card-text">
+            {% for field in apple[item][10] if field not in ['epochStartDate', 'epochEndDate', 'messageId', 'eventStatus', 'datePosted', 'affectedServices'] %}
+                {% if loop.cycle != 0 %}<br/>{% endif %}
+                {{field}}: {{apple[item][0][field]}}
+            {% endfor %}
+            </p>
+        {% elif apple[item][0]['eventStatus']|lower == 'resolved' %}
+            <p class="card-title">{{item}}<span class="badge badge-info float-right">{{apple[item][0]['eventStatus']}}</span></p>
             <p class="card-text">
             {% for field in apple[item][10] if field not in ['epochStartDate', 'epochEndDate', 'messageId', 'eventStatus', 'datePosted', 'affectedServices'] %}
                 {% if loop.cycle != 0 %}<br/>{% endif %}
@@ -19,3 +27,5 @@
     {% endfor %}
     </div>
 </div>
+
+jif
